@@ -9,12 +9,15 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 
-import net.zephyrizing.http_server.exceptions.BadRequestException;
-import net.zephyrizing.http_server.exceptions.HttpServerException;
+import net.zephyrizing.http_server.HttpServer;
 import net.zephyrizing.http_server.handlers.CobSpecHandler;
 import net.zephyrizing.http_server.handlers.Handler;
 
+import static java.util.Arrays.asList;
+
 public class StartServer {
+
+    private static int DEFAULT_THREADS = 24;
 
     public static void main(String[] args) throws InterruptedException {
         String defaultPublicRoot = String.format("%s/src/cob_spec/public/",
