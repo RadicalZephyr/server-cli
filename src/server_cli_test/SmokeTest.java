@@ -10,14 +10,16 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import server_cli.StartServer;
-
 import org.junit.Ignore;
 import org.junit.Test;
+
+import server_cli.StartServer;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -77,7 +79,20 @@ public class SmokeTest {
             }
         }
 
+        private boolean directoryOK() {
+            if (this.directory != null) {
+                return Files.isDirectory(Paths.get(this.directory));
+            } else {
+                return true;
+            }
+        }
+
         public void startServer() {
+            if(!directoryOK()) {
+                print("given directory does not exist, exiting.");
+                print(this.directory);
+                return;
+            }
             if (!withOutput) {
                 PrintStream newErr = new PrintStream(new ByteArrayOutputStream());
                 System.setErr(newErr);
