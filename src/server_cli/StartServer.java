@@ -40,7 +40,7 @@ public class StartServer {
         Path public_root = Paths.get(public_root_path);
 
         if (!Files.isDirectory(public_root)) {
-            System.err.println("The directory given must exist!");
+            System.err.format("The directory '%s' must exist!\n", public_root_path);
             return;
         }
 
